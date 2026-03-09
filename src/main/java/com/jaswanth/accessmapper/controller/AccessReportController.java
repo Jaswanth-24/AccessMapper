@@ -5,9 +5,7 @@ import com.jaswanth.accessmapper.DTO.RepositoryDTO;
 import com.jaswanth.accessmapper.client.GitHubClient;
 import com.jaswanth.accessmapper.service.AccessReportService;
 
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,42 +18,22 @@ public class AccessReportController {
     private final AccessReportService service;
     private final GitHubClient gitHubClient;
 
+
     public AccessReportController(AccessReportService service, GitHubClient gitHubClient) {
         this.service = service;
         this.gitHubClient = gitHubClient;
     }
 
     @GetMapping("/orgs")
-    public List<String> getOrganizations(
-            @RegisteredOAuth2AuthorizedClient("github") OAuth2AuthorizedClient authorizedClient) {
-
-        if (authorizedClient == null) {
-            throw new AuthenticationCredentialsNotFoundException(
-                    "User not authenticated. Please login with GitHub."
-            );
-        }
-
-
-        String token = authorizedClient.getAccessToken().getTokenValue();
-
-        return gitHubClient.getUserOrganizations(token);
+    public List<String> getOrganizations() {
+        return gitHubClient.getUserOrganizations();
     }
 
     @GetMapping("/access-report")
-    public AccessReportResponseDTO getReport(
-            @RequestParam String org,
-            @RegisteredOAuth2AuthorizedClient("github")OAuth2AuthorizedClient authorizedClient) {
-
-        if (authorizedClient == null) {
-            throw new AuthenticationCredentialsNotFoundException(
-                    "User not authenticated. Please login with GitHub."
-            );
-        }
-
-        String token = authorizedClient.getAccessToken().getTokenValue();
-
-        return service.generateReport(org, token);
+    public AccessReportResponseDTO getReport(@RequestParam String org) {
+        return service.generateReport(org);
     }
+
     @GetMapping("/no-organization")
     public Map<String, String> noOrganization() {
         return Map.of(
@@ -64,18 +42,7 @@ public class AccessReportController {
     }
 
     @GetMapping("/orgs/{org}/repos")
-    public List<RepositoryDTO> getRepositories(
-            @PathVariable String org,
-            @RegisteredOAuth2AuthorizedClient("github") OAuth2AuthorizedClient authorizedClient) {
-
-        if (authorizedClient == null) {
-            throw new AuthenticationCredentialsNotFoundException(
-                    "User not authenticated. Please login with GitHub."
-            );
-        }
-
-        String token = authorizedClient.getAccessToken().getTokenValue();
-
-        return service.getRepositories(org, token);
+    public List<RepositoryDTO> getRepositories(@PathVariable String org) {
+        return service.getRepositories(org);
     }
 }

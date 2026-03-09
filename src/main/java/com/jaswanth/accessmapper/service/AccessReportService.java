@@ -18,9 +18,9 @@ public class AccessReportService {
 
 
     @Cacheable(value = "accessReports", key = "#org + '-' + #token")
-    public AccessReportResponseDTO generateReport(String org, String token) {
+    public AccessReportResponseDTO generateReport(String org) {
 
-        List<RepositoryDTO> repos = gitHubClient.getRepositories(org, token);
+        List<RepositoryDTO> repos = gitHubClient.getRepositories(org);
 
         Map<String, List<RepositoryAccessDTO>> userRepoMap = new ConcurrentHashMap<>();
 
@@ -33,7 +33,7 @@ public class AccessReportService {
             tasks.add(() -> {
 
                 CollaboratorDTO[] collaborators =
-                        gitHubClient.getCollaborators(org, repo.getName(), token);
+                        gitHubClient.getCollaborators(org, repo.getName());
 
                 if (collaborators != null) {
 
@@ -101,7 +101,7 @@ public class AccessReportService {
         return "none";
     }
 
-    public List<RepositoryDTO> getRepositories(String org, String token) {
-        return gitHubClient.getRepositories(org, token);
+    public List<RepositoryDTO> getRepositories(String org) {
+        return gitHubClient.getRepositories(org);
     }
 }
