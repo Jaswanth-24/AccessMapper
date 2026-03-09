@@ -5,11 +5,9 @@ import com.jaswanth.accessmapper.DTO.RepositoryDTO;
 import com.jaswanth.accessmapper.client.GitHubClient;
 import com.jaswanth.accessmapper.service.AccessReportService;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,23 +22,19 @@ public class AccessReportController {
         this.gitHubClient = gitHubClient;
     }
 
+    //return list of organizations
     @GetMapping("/orgs")
     public List<String> getOrganizations() {
         return gitHubClient.getUserOrganizations();
     }
 
+    //returns Access Report of all the repositories of the organization
     @GetMapping("/access-report")
     public AccessReportResponseDTO getReport(@RequestParam String org) {
         return service.generateReport(org);
     }
 
-    @GetMapping("/no-organization")
-    public Map<String, String> noOrganization() {
-        return Map.of(
-                "error", "No organization found for this GitHub account"
-        );
-    }
-
+    //return Repositories of the organization
     @GetMapping("/orgs/{org}/repos")
     public List<RepositoryDTO> getRepositories(@PathVariable String org) {
         return service.getRepositories(org);
