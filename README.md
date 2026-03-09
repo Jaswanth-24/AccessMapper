@@ -35,14 +35,14 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
   
    2. Get Organization Repositories: Returns all repositories that belong to a specific organization.
 
-  GET /api/orgs/{org}/repos
+   GET /api/orgs/{org}/repos
   
-  http://localhost:8080/api/orgs/{org}/repos
+   http://localhost:8080/api/orgs/{org}/repos
   
-  3. Generate Access Report: Returns a report showing which users have access to which repositories in an organization.
+   3. Generate Access Report: Returns a report showing which users have access to which repositories in an organization.
 
-  GET /api/access-report?org={org}
-  
-  http://localhost:8080/api/access-report?org={org}
+   GET /api/access-report?org={org}
+
+   http://localhost:8080/api/access-report?org={org}
 
   **NOTE**: {org}: organization name
