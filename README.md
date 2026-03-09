@@ -1,4 +1,4 @@
-**# AccessMapper**
+**AccessMapper**
 
 **Project Overview**
 
@@ -19,7 +19,7 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
    **set GITHUB_TOKEN=paste_your_github_token**
 
    
-4. Run the Application
+4. Run the Application:
    **mvn spring-boot:run**
    
    The application will start on: **http://localhost:8080**
