@@ -10,11 +10,13 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
 
 1. Clone the Repository
    git clone https://github.com/Jaswanth-24/AccessMapper.git
+   
    cd AccessMapper
    
-2. Set GitHub Token
+3. Set GitHub Token
 
    Create a GitHub Personal Access Token with the following permissions:
+   
       repo
       read:org
 
@@ -23,7 +25,7 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
    Windows (Command Prompt): set GITHUB_TOKEN=your_github_token
 
    Mac/Linux: export GITHUB_TOKEN=your_github_token
-3. Run the Application
+5. Run the Application
 
    mvn spring-boot:run
 
