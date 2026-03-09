@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dashboard - GitHub Access Mapper</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#f4f6f8;
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+            padding-top:40px;
+        }
+
+        .container{
+            width:80%;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            text-align:center;
+        }
+
+        img{
+            border-radius:50%;
+            margin-top:10px;
+        }
+
+        button{
+            padding:12px 20px;
+            margin:10px;
+            border:none;
+            border-radius:6px;
+            background:#24292e;
+            color:white;
+            font-size:15px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#444;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th{
+            background:#24292e;
+            color:white;
+            padding:10px;
+        }
+
+        td{
+            padding:10px;
+            border-bottom:1px solid #ddd;
+        }
+
+        tr:hover{
+            background:#f1f1f1;
+        }
+
+        pre{
+            background:#eee;
+            padding:15px;
+            margin-top:20px;
+            text-align:left;
+            max-height:400px;
+            overflow:auto;
+        }
+
+    </style>
+
+    <script>
+
+        function loadOrganizations(){
+            window.location.href = "/api/orgs";
+        }
+
+        function loadRepositories(){
+
+            let org = prompt("Enter organization name");
+
+            if(!org) return;
+
+            window.location.href = "/api/orgs/" + org + "/repos";
+        }
+
+        function loadAccessReport(){
+
+            let org = prompt("Enter organization name");
+
+            if(!org) return;
+
+            window.location.href = "/api/access-report?org=" + org;
+        }
+
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Welcome <span th:text="${username}"></span></h2>
+
+    <img th:src="${avatar}" width="80"/>
+
+    <h3>GitHub Access Mapper Dashboard</h3>
+
+    <button onclick="loadOrganizations()">Load Organizations</button>
+
+    <button onclick="loadRepositories()">Load Repositories</button>
+
+    <button onclick="loadAccessReport()">Load Access Report</button>
+
+    <div id="result"></div>
+
+
+</div>
+
+</body>
+
+</html>
