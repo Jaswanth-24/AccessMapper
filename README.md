@@ -58,3 +58,24 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
 {org} represents the GitHub organization name.
 
 Ensure that the GitHub token has sufficient permissions to access organization repositories and collaborators.
+
+
+**Scalability & Design Considerations**
+
+This implementation is designed to support organizations with 100+ repositories and 1000+ users.
+
+Pagination Handling
+
+GitHub API pagination is handled using per_page=100 and page parameters to retrieve repositories efficiently.
+
+Efficient Data Aggregation
+
+Access reports are generated using Java collections such as HashMap and Set to efficiently map users to repositories.
+
+Clean Architecture
+
+The project follows a layered architecture (Controller → Service → Client → DTO) to keep the code maintainable and scalable.
+
+Future Optimization
+
+The current implementation fetches collaborators per repository. For very large organizations, this can be further optimized using asynchronous API calls or parallel processing.
