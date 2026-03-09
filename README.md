@@ -11,38 +11,48 @@ Access Mapper is a backend service that connects to the GitHub API to analyze re
 1. Clone the Repository
    git clone https://github.com/Jaswanth-24/AccessMapper.git
    cd AccessMapper
+   
+2. Set GitHub Token
 
-   
-3. Set GitHub Token
-   Create a GitHub Personal Access Token with repo and read:org permissions and set it as an environment variable
-   run this command to set environment variable in same command prompt:
-   **set GITHUB_TOKEN=paste_your_github_token**
+   Create a GitHub Personal Access Token with the following permissions:
+      repo
+      read:org
 
-   
-4. Run the Application:
-   **mvn spring-boot:run**
-   
-   The application will start on: **http://localhost:8080**
+   Set it as an environment variable.
 
-   
-5. Test the API
-   
+   Windows (Command Prompt): set GITHUB_TOKEN=your_github_token
+
+   Mac/Linux: export GITHUB_TOKEN=your_github_token
+3. Run the Application
+
+   mvn spring-boot:run
+
+   The application will start at: http://localhost:8080
+
+   API Endpoints
+
    1. Get User Organizations: Returns the list of organizations the authenticated GitHub user belongs to.
 
-   GET /api/orgs
+      GET /api/orgs
 
-   http://localhost:8080/api/orgs
-  
-   2. Get Organization Repositories: Returns all repositories that belong to a specific organization.
+      Example: http://localhost:8080/api/orgs
 
-   GET /api/orgs/{org}/repos
-  
-   http://localhost:8080/api/orgs/{org}/repos
-  
-   3. Generate Access Report: Returns a report showing which users have access to which repositories in an organization.
+   2. Get Organization Repositories: Returns all repositories belonging to a specific organization.
 
-   GET /api/access-report?org={org}
+      GET /api/orgs/{org}/repos
 
-   http://localhost:8080/api/access-report?org={org}
+      Example: http://localhost:8080/api/orgs/{org}/repos
+   3. Generate Access Report: Returns a report showing which users have access to which repositories in the specified organization.
 
-  **NOTE**: {org}: organization name
+      GET /api/access-report?org={org}
+
+      Example: http://localhost:8080/api/access-report?org={org}
+
+**Note**
+1.{org} represents the GitHub organization name.
+
+2.Ensure that the GitHub token has sufficient permissions to access organization repositories and collaborators.
+
+{org} represents the GitHub organization name.
+
+Ensure that the GitHub token has sufficient permissions to access organization repositories and collaborators.
